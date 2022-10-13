@@ -1,6 +1,6 @@
 package ss6_inheritance.exerise.point2d_point3d;
 
-public class Main {
+public class TestPoint2DPoint3D {
     public static void main(String[] args) {
         Point2D point2D = new Point2D();
         point2D.setX(1);
