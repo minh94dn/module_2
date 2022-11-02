@@ -12,31 +12,25 @@ public class ProductService implements IProductService {
     public static ArrayList<Product> products = new ArrayList<>();
 
     public static void writeFile(String path, ArrayList<Product> products) throws IOException {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(path);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(products);
-            objectOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(products);
+        objectOutputStream.close();
+
     }
 
-    public static ArrayList<Product> readFile(String path) {
+    public static ArrayList<Product> readFile(String path) throws IOException, ClassNotFoundException {
         ArrayList<Product> products = new ArrayList<>();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            products = (ArrayList<Product>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        products = (ArrayList<Product>) objectInputStream.readObject();
+        objectInputStream.close();
         return products;
     }
 
     @Override
-    public void add() throws IOException {
+    public void add() throws IOException, ClassNotFoundException {
         ArrayList<Product> products = readFile(PATH);
         int id = products.get(products.size() - 1).getId() + 1;
         System.out.print("Nhập tên sản phẩm: ");
@@ -56,7 +50,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void display() {
+    public void display() throws IOException, ClassNotFoundException {
         ArrayList<Product> products = readFile(PATH);
         System.out.println("Danh sách sản phẩm: ");
         for (Product product : products) {
@@ -65,15 +59,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void find() {
+    public void find() throws IOException, ClassNotFoundException {
         ArrayList<Product> products = readFile(PATH);
         System.out.print("Nhập tên sản phẩm cần tìm: ");
         String name = scanner.nextLine();
         boolean check = false;
         for (int i = 0; i < products.size(); i++) {
-            if (ProductService.products.get(i).getName().equals(name)) {
+            if (products.get(i).getName().equals(name)) {
                 check = true;
-                System.out.println(ProductService.products.get(i));
+                System.out.println(products.get(i));
             }
         }
         if (!check) {

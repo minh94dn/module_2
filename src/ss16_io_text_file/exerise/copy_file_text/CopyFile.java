@@ -30,12 +30,15 @@ public class CopyFile {
             bufferedWriter.newLine();
         }
         bufferedWriter.close();
-        String string = "";
-        for(String str: list){
-            string += str;
+        //String string = "";
+        int count = 0;
+        for (String str : list) {
+            //string += str;
+            count += str.length();
         }
-        string.toString().split("");
-        System.out.println("Số ký tự có trong tệp là: " + string.length());
+        // string.toString().split("");
+        //  System.out.println("Số ký tự có trong tệp là: " + string.length());
+        System.out.println("Số ký tự có trong tệp là: " + count);
 
     }
 }
